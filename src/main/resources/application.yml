@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      write-dates-as-timestamps: false
+seed-mode:
+  type: json
