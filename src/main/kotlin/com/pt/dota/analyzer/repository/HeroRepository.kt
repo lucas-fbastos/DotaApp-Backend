@@ -1,6 +1,5 @@
 package com.pt.dota.analyzer.repository
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.pt.dota.analyzer.domain.Hero
@@ -10,16 +9,16 @@ import java.io.File
 
 @Repository
 class HeroRepository(
-    private var heroes: List<Hero>
+    val heroes : MutableList<Hero> = mutableListOf<Hero>()
 ) {
 
-    val mapper = jacksonObjectMapper()
+    private val mapper = jacksonObjectMapper()
 
     suspend fun getAll(): List<Hero> =
         heroes.ifEmpty {
             println("EMPTY")
             File(HERO_FILE_NAME).readBytes().let {
-                heroes = mapper.readValue<List<Hero>>(it)
+                heroes.addAll(mapper.readValue<List<Hero>>(it))
                 heroes
             }
         }
@@ -28,11 +27,12 @@ class HeroRepository(
         heroes.first(){ it.id == id }
 
 
-    suspend fun saveAll(heroes: List<Hero>) =
+    suspend fun saveAll(heroesToLoad: List<Hero>) =
         coroutineScope {
             val heroFile = File(HERO_FILE_NAME)
             heroFile.createNewFile()
-            mapper.writeValue(heroFile,heroes)
+            mapper.writeValue(heroFile,heroesToLoad)
+            heroes.addAll(heroesToLoad)
         }
 }
-private const val HERO_FILE_NAME = "heroes.json"
+internal const val HERO_FILE_NAME = "heroes.json"
