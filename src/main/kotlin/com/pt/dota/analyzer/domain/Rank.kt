@@ -53,17 +53,19 @@ enum class Rank(
     DIVINE_5("",7,"Divine",5),
     IMMORTAL("",8,"Immortal",0);
 
-    fun convertFromApiModel(apiRank: Int): Rank =
-         apiRank.toDigits()
-             .let {digits ->
-                 values()
-                    .firstOrNull() { medalOrder == digits[0] && star == digits[1] }
-                     ?: throw IllegalStateException()
-             }
+    companion object{
+        fun convertFromApiModel(apiRank: Int?): Rank =
+            apiRank?.let{rank ->
+                val digits = rank.toDigits()
+                values()
+                    .firstOrNull{ it.medalOrder == digits[0] && it.star == digits[1] }
+            } ?: UNRANKED
+    }
+
 
 }
 
-fun Int.toDigits(base: Int = 10): List<Int> =
+private fun Int.toDigits(base: Int = 10): List<Int> =
     sequence {
         var n = this@toDigits
         require(n >= 0)

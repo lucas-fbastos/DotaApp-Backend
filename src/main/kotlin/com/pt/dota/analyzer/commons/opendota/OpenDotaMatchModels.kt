@@ -31,9 +31,9 @@ data class OpenDotaRecentMatch(
     val partySize: Int?,
 ){
 
-   private val leaverStatusEnum : LeaverStatus
+    val leaverStatusEnum : LeaverStatus
        get() {
-        return LeaverStatus.values()[this.leaverStatus]
+           return if(leaverStatus>2) LeaverStatus.ABANDONED else LeaverStatus.values()[this.leaverStatus]
        }
 }
 

@@ -20,7 +20,7 @@ class OpenDotaReactiveClient(
             .retrieve()
             .bodyToFlux<OpenDotaHero>()
 
-    override suspend fun getRecentMatchesByPlayer(playerId: String): Flux<OpenDotaRecentMatch> =
+    override suspend fun getOpenDotaRecentMatchesByPlayer(playerId: String): Flux<OpenDotaRecentMatch> =
         webClient
             .get()
             .uri(OPEN_DOTA_GET_PLAYER_RECENT_MATCHES,playerId)
@@ -30,4 +30,4 @@ class OpenDotaReactiveClient(
 }
 
 internal const val OPEN_DOTA_GET_HEROES_ENDPOINT = "/heroes"
-internal const val OPEN_DOTA_GET_PLAYER_RECENT_MATCHES = "players/{playerId}/matches"
+internal const val OPEN_DOTA_GET_PLAYER_RECENT_MATCHES = "/players/{playerId}/recentMatches"

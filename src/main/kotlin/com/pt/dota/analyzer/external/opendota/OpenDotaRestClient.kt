@@ -8,5 +8,5 @@ interface OpenDotaRestClient {
 
    suspend fun getOpenDotaHeroes() : Flux<OpenDotaHero>
 
-   suspend fun getRecentMatchesByPlayer(playerId: String) : Flux<OpenDotaRecentMatch>
+   suspend fun getOpenDotaRecentMatchesByPlayer(playerId: String) : Flux<OpenDotaRecentMatch>
 }

@@ -11,7 +11,8 @@ class AppRouter {
 
     @Bean
     fun router(
-        heroHandler: HeroHandler
+        heroHandler: HeroHandler,
+        matchHandler: MatchHandler,
     ) = coRouter {
         "/heroes".nest {
             GET("", heroHandler::getAll)
@@ -19,7 +20,7 @@ class AppRouter {
             GET("/seed/json", heroHandler::seedDb)
         }
         "/matches".nest {
-           // GET("/{id}",MatchHandler::getByPlayer)
+            GET("/{id}",matchHandler::getByPlayer)
         }
 
     }

@@ -37,7 +37,9 @@ class HeroService(
         heroRepository.getById(id)
 
     suspend fun getAllFromOpenDota(): List<Hero> =
-        openDotaRestClient.getOpenDotaHeroes().collectList().awaitLast()
+        openDotaRestClient.getOpenDotaHeroes()
+            .collectList()
+            .awaitLast()
             .map { HeroMapper.toHero(it) }
 }
 

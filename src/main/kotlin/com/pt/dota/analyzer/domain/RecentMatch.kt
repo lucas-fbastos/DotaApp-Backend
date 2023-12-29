@@ -1,25 +1,28 @@
 package com.pt.dota.analyzer.domain
 
 import com.pt.dota.analyzer.commons.opendota.LeaverStatus
-import java.time.Duration
+import kotlin.time.Duration
 
 
 data class RecentMatch(
     val matchId: String,
-    val playerSlot: Int,
-    val duration: Duration,
+    val playerSlot: Int?,
+    val duration: Long,
     val gameMode: GameMode,
     val kills: Int,
     val deaths: Int,
     val assists: Int,
     val averageRank: Rank?,
     val leaverStatus: LeaverStatus,
-    val partySize: Int,
+    val partySize: Int?,
+    val radiantWon: Boolean?,
 
 ) {
-    private val playerTeam: String
-        get() = if (playerSlot <= 127) "Radiant" else "Dire"
+     val playerTeam: String ?
+        get() = playerSlot?.let { if (playerSlot <= 127) "Radiant" else "Dire" }
 
+    val playerWon: Boolean?
+        get() = playerTeam?.let { (it == "Radiant" && radiantWon == true) || (it == "Dire" && radiantWon == false) }
 }
 
 enum class GameMode(
@@ -53,7 +56,10 @@ enum class GameMode(
     MUTATION(24, "Mutation"),
     COACHES_CHALLENGE(25,"Coaches Challenge");
 
-    fun getById(id: Int) : GameMode? = values().firstOrNull{ gameMode -> gameMode.id == id }
+    companion object {
+        fun getById(id: Int) : GameMode = values().firstOrNull{ gameMode -> gameMode.id == id } ?: UNKNOWN
+    }
+
 
 
 }
