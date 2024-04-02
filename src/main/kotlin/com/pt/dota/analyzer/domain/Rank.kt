@@ -1,6 +1,5 @@
 package com.pt.dota.analyzer.domain
 
-import java.lang.IllegalStateException
 
 enum class Rank(
     private val imageUrl: String,
@@ -51,7 +50,7 @@ enum class Rank(
     DIVINE_3("",7,"Divine",3),
     DIVINE_4("",7,"Divine",4),
     DIVINE_5("",7,"Divine",5),
-    IMMORTAL("",8,"Immortal",0);
+    IMMORTAL("",8,"Immortal",1);
 
     companion object{
         fun convertFromApiModel(apiRank: Int?): Rank =
@@ -65,12 +64,12 @@ enum class Rank(
 
 }
 
-private fun Int.toDigits(base: Int = 10): List<Int> =
+private fun Int.toDigits(): List<Int> =
     sequence {
         var n = this@toDigits
         require(n >= 0)
         while (n != 0) {
-            yield(n % base)
-            n /= base
+            yield(n % 10)
+            n /= 10
         }
     }.toList().asReversed()

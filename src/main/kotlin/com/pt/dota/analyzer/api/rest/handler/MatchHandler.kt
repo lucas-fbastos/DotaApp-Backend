@@ -11,10 +11,19 @@ class MatchHandler(
     val matchService: MatchService
 ) {
 
-    suspend fun getByPlayer(serverRequest: ServerRequest) : ServerResponse
-    = ServerResponse.ok().bodyValueAndAwait(
-            matchService.getRecentPlayerMatches( serverRequest
-                .pathVariable("id")
+    suspend fun recentMatches(serverRequest: ServerRequest) : ServerResponse
+        = ServerResponse.ok().bodyValueAndAwait(
+            matchService.getRecentPlayerMatches(
+                serverRequest
+                    .pathVariable("playerId")
+            )
+        )
+
+    suspend fun matchDetails(serverRequest: ServerRequest) : ServerResponse
+        = ServerResponse.ok().bodyValueAndAwait(
+            matchService.getMatchDetails(
+                serverRequest
+                    .pathVariable("matchId")
             )
         )
 }
