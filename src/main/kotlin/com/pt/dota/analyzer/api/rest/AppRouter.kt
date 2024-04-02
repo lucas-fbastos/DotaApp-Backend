@@ -19,8 +19,11 @@ class AppRouter {
             GET("/{id}", heroHandler::getById)
             GET("/seed/json", heroHandler::seedDb)
         }
-        "/matches".nest {
-            GET("/{id}",matchHandler::getByPlayer)
+        "/player".nest {
+            GET("/{playerId}/recentMatches", matchHandler::recentMatches)
+        }
+        "/match".nest {
+            GET("/{matchId}", matchHandler::matchDetails)
         }
 
     }

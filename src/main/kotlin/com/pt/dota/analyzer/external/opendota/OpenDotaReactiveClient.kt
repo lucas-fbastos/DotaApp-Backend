@@ -1,6 +1,7 @@
 package com.pt.dota.analyzer.external.opendota
 
 import com.pt.dota.analyzer.commons.opendota.OpenDotaHero
+import com.pt.dota.analyzer.commons.opendota.OpenDotaMatch
 import com.pt.dota.analyzer.commons.opendota.OpenDotaRecentMatch
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
@@ -27,7 +28,15 @@ class OpenDotaReactiveClient(
             .retrieve()
             .bodyToFlux<OpenDotaRecentMatch>()
 
+    override suspend fun getMatchDetails(matchId: String): Flux<OpenDotaMatch> =
+        webClient
+            .get()
+            .uri(OPEN_DOTA_GET_MATCH_DETAILS,matchId)
+            .retrieve()
+            .bodyToFlux<OpenDotaMatch>()
+
 }
 
-internal const val OPEN_DOTA_GET_HEROES_ENDPOINT = "/heroes"
-internal const val OPEN_DOTA_GET_PLAYER_RECENT_MATCHES = "/players/{playerId}/recentMatches"
+private const val OPEN_DOTA_GET_HEROES_ENDPOINT = "/heroes"
+private const val OPEN_DOTA_GET_PLAYER_RECENT_MATCHES = "/players/{playerId}/recentMatches"
+private const val OPEN_DOTA_GET_MATCH_DETAILS = "/matches/{matchId}"
