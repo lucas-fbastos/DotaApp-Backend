@@ -1,6 +1,7 @@
 package com.pt.dota.analyzer.api.rest
 
 import com.pt.dota.analyzer.api.rest.handler.HeroHandler
+import com.pt.dota.analyzer.api.rest.handler.ItemHandler
 import com.pt.dota.analyzer.api.rest.handler.MatchHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,6 +14,7 @@ class AppRouter {
     fun router(
         heroHandler: HeroHandler,
         matchHandler: MatchHandler,
+        itemHandler: ItemHandler,
     ) = coRouter {
         "/heroes".nest {
             GET("", heroHandler::getAll)
@@ -24,6 +26,10 @@ class AppRouter {
         }
         "/match".nest {
             GET("/{matchId}", matchHandler::matchDetails)
+        }
+        "/items".nest {
+            GET("", itemHandler::getAll)
+            GET("/{itemId}", itemHandler::getById)
         }
 
     }

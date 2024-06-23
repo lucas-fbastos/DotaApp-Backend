@@ -9,13 +9,13 @@ data class MatchPlayer (
     val hero: Hero,
     val items: PlayerItems,
     val score: PlayerScore,
-    val actions: Map<PlayerAction,Int>,
+    val actions: Map<PlayerAction,Int>? = null,
 )
 
 data class PlayerItems(
-    val items: Map<Int, Item>,
-    val backpack: Map<Int, Item>,
-    val neutralItem: Item,
+    val items: Map<Int, Item?>,
+    val backpack: Map<Int, Item?>,
+    val neutralItem: Item?,
     val aghsScepter: Boolean,
     val aghsShard: Boolean,
     val moonShard: Boolean,

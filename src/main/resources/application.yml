@@ -5,5 +5,11 @@ spring:
     serialization:
       fail-on-empty-beans: false
       write-dates-as-timestamps: false
+  cache:
+    cache-names: items,heroes
+    caffeine:
+      spec:
+        maximum-size: 500
+        expire-after-access: 86400s
 seed-mode:
   type: json

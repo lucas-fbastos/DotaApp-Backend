@@ -209,7 +209,9 @@ data class OpenDotaMatchPlayer(
     @JsonProperty("is_subscriber")
     val isSubscriber: Boolean,
     val benchmarks: PlayerBenchmarks
-)
+){
+    fun itemIds() = listOf(item0, item1, item2, item3, item4, item5, itemNeutral, backpack0, backpack1, backpack2)
+}
 
 @JsonInclude(NON_NULL)
 data class PlayerBenchmarks(

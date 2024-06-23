@@ -3,7 +3,7 @@ package com.pt.dota.analyzer.domain
 import kotlin.time.Duration
 
 data class Match(
-    val matchId: String,
+    val matchId: Long,
     val radiantWin: Boolean?,
     val duration: Duration,
     val gameMode: GameMode,
@@ -15,5 +15,5 @@ data class Match(
     val negativeVotes: Int,
     val winner: String,
     val version: Int,
-    val players: List<Player>
+    val players: List<MatchPlayer>
 )
