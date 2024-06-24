@@ -8,11 +8,13 @@ import com.pt.dota.analyzer.repository.HeroRepository
 import jakarta.annotation.PostConstruct
 import kotlinx.coroutines.reactive.awaitLast
 import kotlinx.coroutines.runBlocking
+import org.springframework.cache.annotation.CacheConfig
 import org.springframework.stereotype.Service
 import java.io.File
 
 
 @Service
+@CacheConfig(cacheNames = ["hero"])
 class HeroService(
     private val openDotaRestClient: OpenDotaRestClient,
     private val heroRepository: HeroRepository
